@@ -1,0 +1,51 @@
+// assuming size of left (max_heap) = right(min head)+1 in case of odd number
+for finding median take top elemnt of left aand top element of right in case of even number (left.top()+right.top())/2;
+in case of even number median = left.top();
+
+class MedianFinder {
+public:
+    priority_queue<int> left;
+    priority_queue<int,vector<int>, greater<int>> right;
+    MedianFinder() {
+        
+    }
+    
+    void addNum(int num) {
+        if(left.empty()==true || left.top()>num)    // insertion when left is empty and if num smaller than left.top because left side consist of smaller element;
+        {
+            left.push(num);
+        }
+        else{
+            right.push(num);
+        }
+        // rebalancing
+        if(right.size()>left.size())    if right size is greater than left then left.top
+        {
+            left.push(right.top());
+            right.pop();
+        }
+        else if(left.size()>right.size()+1) if left.size()>right.size()+1;
+        {
+            right.push(left.top());
+            left.pop();
+        }
+      
+        
+    }
+    
+    double findMedian() {
+            
+             return left.size()>right.size()? left.top():(left.top()+right.top())/2.0;
+        }
+       
+    
+};
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
+ TC O(NLOG(N))
+ SC O(N)
