@@ -1,0 +1,25 @@
+int furthestBuilding(vector<int>& heights, int bricks, int ladders) {
+       int i;
+        priority_queue<int, vector<int>, greater<int>> min_heap;
+        for(i=1; i<heights.size(); i++)
+        {
+          int diff = heights[i]-heights[i-1];
+            if(diff>0)
+            {
+                min_heap.push(diff);
+                if(min_heap.size()>ladders)
+                {
+                    bricks -= min_heap.top();
+                    min_heap.pop();
+                    if(bricks<0)
+                    {
+                        return i-1;
+                    }
+                }
+            }
+        }
+        return i-1;
+        
+        }
+        TC o(nlog(n-ladders))
+        SC O(N)
